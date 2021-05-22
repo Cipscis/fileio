@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Saving and loading files in a browser.",
 	"private": true,
-	"browser": "fileio.js",
+	"browser": "./fileio.js",
 	"scripts": {
 		"server": "node server/server.js",
 		"watch": "gulp",
