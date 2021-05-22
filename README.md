@@ -1,3 +1,3 @@
 # FileIO
 
-See [FileIO docs](cipscis.github.io/fileio/) for more info.
+See [FileIO docs](https://cipscis.github.io/fileio/) for more info.
