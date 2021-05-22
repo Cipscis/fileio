@@ -1,7 +1,7 @@
 {
-	"name": "base-project",
+	"name": "fileio",
 	"version": "1.0.0",
-	"description": "This is my base project to use when creating new projects.",
+	"description": "Saving and loading files in a browser.",
 	"private": true,
 	"scripts": {
 		"server": "node server/server.js",
