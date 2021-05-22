@@ -2,11 +2,6 @@
 
 let $link;
 
-const ReadMethods = {
-	TEXT: 'readAsText',
-	DATA_URL: 'readAsDataURL'
-};
-
 const fileIO = {
 	load: (options) => {
 		options = options || {};
@@ -159,7 +154,7 @@ const fileIO = {
 			{ type: options.type }
 		);
 
-		fileIO._saveBlob(blob, options.filename);
+		fileIO._saveBlob(blob, options);
 	},
 
 	_downloadDataUrl: function (dataUrl, filename) {
