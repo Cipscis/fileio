@@ -1,4 +1,4 @@
-/* FileIO 1.0.0 */
+import * as csv from 'csv';
 
 let $link;
 
@@ -144,7 +144,7 @@ const fileIO = {
 
 			options.filename = fileIO._extendFilename(options.filename, 'json');
 		} else if (options.type === 'text/csv') {
-			data = fileIO._csvPrepareData(data, options);
+			data = csv.stringify(data, options);
 			options.filename = fileIO._extendFilename(options.filename, 'csv');
 		}
 
@@ -164,95 +164,6 @@ const fileIO = {
 		$link.click();
 
 		URL.revokeObjectURL(dataUrl);
-	},
-
-	_csvPrepareData: function (data, options) {
-		// Enforce square data and apply CSV escaping, then convert to string
-		let rows = data;
-
-		rows = fileIO._csvShapeData(data, options);
-		rows = fileIO._csvEscape(rows, options);
-
-		rows = fileIO._csvStringify(rows);
-
-		return rows;
-	},
-
-	_csvStringify: function (rows) {
-		for (let i = 0; i < rows.length; i++) {
-			rows[i] = rows[i].join(',');
-		}
-		rows = rows.join('\n');
-
-		return rows;
-	},
-
-	_csvShapeData: function (data, options) {
-		// Pad empty cells with empty strings and,
-		// if necessary, transpose the data
-
-		const transpose = options.transpose;
-
-		const maxLength = data.reduce((maxLength, row) => Math.max(maxLength, row.length), 0);
-
-		// Flip rows and columns if transposing data
-		const iMax = transpose ? maxLength : data.length;
-		const jMax = transpose ? data.length : maxLength;
-
-		let rows = [];
-		for (let i = 0; i < iMax; i++) {
-			let row = [];
-			for (let j = 0; j < jMax; j++) {
-				let cellValue = transpose ? data[j][i] : data[i][j];
-
-				if (typeof cellValue === 'undefined') {
-					cellValue = '';
-				}
-
-				row.push(cellValue);
-			}
-			rows.push(row);
-		}
-
-		return rows;
-	},
-
-	_csvEscape: function (rows, options) {
-		// Make sure any cells containing " or , or a newline are escaped appropriately
-
-		const sanitise = options.sanitise;
-
-		for (let i = 0; i < rows.length; i++) {
-			let row = rows[i];
-
-			for (let j = 0; j < row.length; j++) {
-				if (typeof row[j] === 'undefined') {
-					row[j] = '';
-				} else if (typeof row[j] !== 'string') {
-					// Convert to string
-					row[j] = '' + row[j];
-				}
-
-				if (sanitise) {
-					// Prevent spreadsheet software like
-					// Excel from trying to execute code
-					if (row[j].match(/^[=\-+@]/)) {
-						row[j] = '\t' + row[j];
-					}
-				}
-
-				if (row[j].match(/,|"|\n/)) {
-
-					// Turn any double quotes into escaped double quotes
-					row[j] = row[j].replace(/"/g, '""');
-
-					// Wrap cell in double quotes
-					row[j] = '"' + row[j] + '"';
-				}
-			}
-		}
-
-		return rows;
 	},
 
 	_downloadDataUrl: function (dataUrl, filename) {

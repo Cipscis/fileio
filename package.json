@@ -1,9 +1,12 @@
 {
 	"name": "fileio",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Saving and loading files in a browser.",
 	"private": true,
 	"browser": "./fileio.js",
 	"author": "Mark Hanna",
-	"license": "Hippocratic-2.1"
+	"license": "Hippocratic-2.1",
+	"dependencies": {
+		"csv": "github:cipscis/csv#semver:1.0.0"
+	}
 }
