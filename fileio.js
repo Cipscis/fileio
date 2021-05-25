@@ -144,7 +144,9 @@ const fileIO = {
 
 			options.filename = fileIO._extendFilename(options.filename, 'json');
 		} else if (options.type === 'text/csv') {
-			data = csv.stringify(data, options);
+			if (!(typeof data === 'string' || data instanceof String)) {
+				data = csv.stringify(data, options);
+			}
 			options.filename = fileIO._extendFilename(options.filename, 'csv');
 		}
 
