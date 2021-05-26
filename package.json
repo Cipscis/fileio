@@ -1,12 +1,29 @@
 {
 	"name": "fileio",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Saving and loading files in a browser.",
 	"private": true,
 	"browser": "./fileio.js",
+	"files": [
+		"fileio.js"
+	],
+	"scripts": {
+		"server": "node server/server.js",
+		"watch": "gulp",
+		"start": "concurrently --kill-others \"npm run server\" \"npm run watch\""
+	},
 	"author": "Mark Hanna",
 	"license": "Hippocratic-2.1",
+	"devDependencies": {
+		"activate": "github:Cipscis/activate#semver:^1.0.2",
+		"concurrently": "^6.1.0",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"gulp": "^4.0.2",
+		"gulp-sass": "^4.1.0",
+		"webpack-stream": "^6.1.2"
+	},
 	"dependencies": {
-		"csv": "github:cipscis/csv#semver:1.0.0"
+		"csv": "github:cipscis/csv#semver:^1.0.0"
 	}
 }
