@@ -1,0 +1,20 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				".gitignore",
+				"package-lock.json",
+				"*.sublime-project"
+			],
+			"folder_exclude_patterns":
+			[
+				"node_modules",
+				"docs/assets/css",
+				"docs/assets/js/dist"
+			],
+			"path": "."
+		}
+	]
+}
