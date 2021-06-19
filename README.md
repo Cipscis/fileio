@@ -29,8 +29,6 @@ This project creates five npm tasks:
 
 * `npm start` runs both the `server` and `watch` tasks simultaneously.
 
-* `npm test` task runs any configured test suites using [Jasmine](https://jasmine.github.io/).
-
 Usually, you will just want to run `npm start`.
 
 ### .env
@@ -74,8 +72,6 @@ These dependencies are used when working on the project locally.
 * [npm](https://www.npmjs.com/): Package manager
 
 * [Gulp](https://gulpjs.com/): Task runner
-
-* [Jasmine](https://jasmine.github.io/): Testing framework
 
 * [sass](https://www.npmjs.com/package/sass): Compiling CSS from [Sass](https://sass-lang.com/)
 
