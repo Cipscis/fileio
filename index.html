@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FileIO</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="/fileio/assets/css/main.css" />
+	<script type="module" src="/fileio/assets/js/dist/bundle.js"></script>
+</head>
+<body>
+	<main class="layout">
+		<section>
+			<div class="content">
+				<h1>FileIO</h1>
+
+				<p>This provides methods for saving and loading files in the browser.</p>
+			</div>
+		</section>
+
+		<section>
+			<div class="content">
+				<h2>Load</h2>
+
+				<code>load(options)</code>
+
+				<p>Prompts the user to select a file on their computer, then loads it into memory. Returns a Promise.</p>
+
+				<p>To load files, FileIO creates an <code>&lt;input type="file" /&gt;</code> element and triggers a click event on it, causing the browser to open a file dialogue.</p>
+
+				<p>Because this involves opening a native modal dialogue, the <code>load</code> method can only be called as a direct response to user action.</p>
+
+				<p>If the user selects a file, then that file's contents are passed to the Promise's <code>resolve</code> callback.</p>
+
+				<h3>Options</h3>
+
+				<dl>
+					<div>
+						<dt><code>readMethod</code></dt>
+						<dd>
+							<p><code>string: 'file' | 'arrayBuffer' | 'binaryString' | 'dataUrl' | 'text'</code></p>
+
+							<p>Determines which read method to use with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank">FileReader</a> API. Defaults to <code>'text'</code>.</p>
+
+							<p>The <code>'file'</code> option bypasses the FileReader API and returns the File object directly.</p>
+						</dd>
+					</div>
+				</dl>
+
+				<h3>Examples</h3>
+
+				<p>The format in which the file is made available depends on the method used.</p>
+
+				<p>Images can be loaded using the <code>'dataUrl'</code> read method, allowing the result to be set as the <code>src</code> attribute of an <code>img</code> tag to display the selected image:</p>
+
+				<p><button class="js-load-image">Load Image</button></p>
+			</div>
+
+			<div>
+				<img class="js-fileio-image" style="display: block; max-width: 100%;" />
+			</div>
+		</section>
+
+		<section>
+			<div class="content">
+				<h2>Save</h2>
+
+				<code>save(data, options)</code>
+
+				<p>The <code>save method</code> can save a <code>File</code>, a <code>Blob</code>, or arbitrary data to disk.</p>
+
+				<p>To save files, FileIO creates an <code>&lt;a&gt;</code> tag pointing to a data URL with a <code>download</code> attribute and triggers a click on it. This causes the browser to perform its default download action, which may include showing the user a native modal dialogue window prompting them to select a location or change the filename.</p>
+
+				<p>For Microsoft browsers that don't support this method, <code>navigator.msSaveBlob</code> is used instead.</p>
+
+				<h3>Options</h3>
+
+				<dl>
+					<div>
+						<dt><code>filename</code></dt>
+						<dd><code>string</code></dd>
+					</div>
+					<div>
+						<dt><code>type</code></dt>
+						<dd>
+							<p><code>string</code></p>
+
+							<p>The MIME type to use when saving arbitrary data. The strings <code>'csv'</code> and <code>'json'</code> can be used as shorthand for <code>'text/csv'</code> and <code>'application/json'</code>, respectively.</p>
+
+							<p>If the MIME type indicates that data should be saved as JSON, FileIO will attempt to stringify the data if it isn't already a string, and the filename will be given a <code>'.json'</code> extension.</p>
+
+							<p>If the MIME type indicates that data should be saved as a CSV, FileIO will expect a 2D array for it to process into a CSV string.</p>
+						</dd>
+					</div>
+					<div>
+						<dt><code>transpose</code></dt>
+						<dd>
+							<p><code>boolean</code></p>
+
+							<p>Only used if saving CSV data.</p>
+
+							<p>If set to <code>true</code>, swap rows and columns before saving.</p>
+						</dd>
+					</div>
+					<div>
+						<dt><code>sanitise</code></dt>
+						<dd>
+							<p><code>boolean</code></p>
+
+							<p>Only used if saving CSV data.</p>
+
+							<p>If set to <code>true</code>, prepend each cell starting with <code>'=' | '\' | '-' | '+' | '@'</code> with a tab character. This prevents spreadsheet software like Excel from trying to execute code.</p>
+
+							<p>This option should be used when saving any data to a CSV that may include data from an untrusted source, such as user-generated data.</p>
+						</dd>
+					</div>
+				</dl>
+
+				<h3>Examples</h3>
+
+				<p><button class="js-save-data">Save some data</button></p>
+				<p><button class="js-save-json">Save JSON</button></p>
+				<p><button class="js-save-csv">Save a CSV</button></p>
+
+				<p><button class="js-save-file">Save a file</button></p>
+			</div>
+		</section>
+	</main>
+</body>
+
+</html>
