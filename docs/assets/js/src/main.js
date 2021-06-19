@@ -1,13 +1,12 @@
 import fileIO from '/fileio';
-import activate from 'activate';
 
 const loadImage = (fileUrl) => {
 	let $image = document.querySelectorAll('.js-fileio-image');
 	$image.forEach(($image) => $image.src = fileUrl);
 };
-activate('.js-load-image', () => {
+document.querySelectorAll('.js-load-image').forEach(($el) => $el.addEventListener('click', () => {
 	fileIO.load({ readMethod: 'dataUrl' }).then(loadImage);
-});
+}));
 
 const saveData = () => {
 	let data = 'Hey look, the file has some content!';
@@ -16,7 +15,7 @@ const saveData = () => {
 
 	fileIO.save(data, { filename, type });
 };
-activate('.js-save-data', saveData);
+document.querySelectorAll('.js-save-data').forEach(($el) => $el.addEventListener('click', saveData));
 
 const saveJson = () => {
 	let data = {
@@ -27,7 +26,7 @@ const saveJson = () => {
 
 	fileIO.save(data, { filename, type: 'json' });
 };
-activate('.js-save-json', saveJson);
+document.querySelectorAll('.js-save-json').forEach(($el) => $el.addEventListener('click', saveJson));
 
 const saveCsv = () => {
 	let data = [
@@ -39,10 +38,10 @@ const saveCsv = () => {
 
 	fileIO.save(data, {filename, type: 'csv', transpose: true });
 };
-activate('.js-save-csv', saveCsv);
+document.querySelectorAll('.js-save-csv').forEach(($el) => $el.addEventListener('click', saveCsv));
 
 const saveFile = async () => {
 	const file = await fileIO.load({ readMethod: 'file' });
 	fileIO.save(file);
 };
-activate('.js-save-file', saveFile);
+document.querySelectorAll('.js-save-file').forEach(($el) => $el.addEventListener('click', saveFile));
