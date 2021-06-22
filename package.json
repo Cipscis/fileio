@@ -1,9 +1,14 @@
 {
 	"name": "fileio",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Saving and loading files in a browser.",
 	"private": true,
 	"browser": "./fileio.js",
+	"exports": {
+		".": "./fileio.js",
+		"./load": "./fileio/load.js",
+		"./save": "./fileio.save.js"
+	},
 	"type": "module",
 	"files": [
 		"fileio.js",
