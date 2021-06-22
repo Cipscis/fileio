@@ -34,6 +34,11 @@
 
 				<p>If the user selects a file, then that file's contents are passed to the Promise's <code>resolve</code> callback.</p>
 
+				<p>This method can be loaded on its own:</p>
+
+				<code class="code--block">import { load } from 'fileio';</code>
+				<code class="code--block">import { load } from 'fileio/load';</code>
+
 				<h3>Options</h3>
 
 				<dl>
@@ -74,6 +79,11 @@
 				<p>To save files, FileIO creates an <code>&lt;a&gt;</code> tag pointing to a data URL with a <code>download</code> attribute and triggers a click on it. This causes the browser to perform its default download action, which may include showing the user a native modal dialogue window prompting them to select a location or change the filename.</p>
 
 				<p>For Microsoft browsers that don't support this method, <code>navigator.msSaveBlob</code> is used instead.</p>
+
+				<p>This method can be loaded on its own:</p>
+
+				<code class="code--block">import { save } from 'fileio';</code>
+				<code class="code--block">import { save } from 'fileio/save';</code>
 
 				<h3>Options</h3>
 

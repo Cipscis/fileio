@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2021-06-22
+
+### Added
+
+* `exports` section in `package.json` to allow `load` and `save` to be imported in isolation.
+
 ## [2.0.0] - 2021-06-22
 
 ### Removed
