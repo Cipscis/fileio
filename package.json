@@ -1,12 +1,14 @@
 {
 	"name": "fileio",
-	"version": "1.2.2",
+	"version": "2.0.0",
 	"description": "Saving and loading files in a browser.",
 	"private": true,
 	"browser": "./fileio.js",
 	"type": "module",
 	"files": [
-		"fileio.js"
+		"fileio.js",
+		"fileio/load.js",
+		"fileio/save.js"
 	],
 	"scripts": {
 		"server": "node server/server.js",
@@ -30,6 +32,6 @@
 		"webpack-stream": "^6.1.2"
 	},
 	"dependencies": {
-		"csv": "github:cipscis/csv#semver:^1.0.0"
+		"csv": "github:cipscis/csv#semver:1.x"
 	}
 }

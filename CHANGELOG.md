@@ -2,6 +2,20 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2021-06-22
+
+### Removed
+
+* There is no longer a default export object from `fileio.js`.
+
+### Changed
+
+* Split `save` and `load` into their own files, so they can be loaded in isolation.
+
+### Fixed
+
+* Removed duplicate internal `_downloadDataUrl` method.
+
 ## [1.2.3] - 2021-06-19
 
 ### Changed

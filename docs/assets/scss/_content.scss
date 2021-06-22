@@ -28,3 +28,11 @@
 	max-width: 100%;
 	overflow: auto;
 }
+
+.code--block {
+	.content &,
+	& {
+		margin: 5px 0;
+		display: block;
+	}
+}

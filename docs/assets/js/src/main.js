@@ -1,4 +1,4 @@
-import fileIO from '/fileio';
+import * as fileIO from '/fileio';
 
 const loadImage = (fileUrl) => {
 	let $image = document.querySelectorAll('.js-fileio-image');
