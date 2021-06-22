@@ -88,6 +88,11 @@ a[href^=tel]:after {
   overflow: auto;
 }
 
+.content .code--block, .code--block {
+  margin: 5px 0;
+  display: block;
+}
+
 html {
   font-family: Arial, sans-serif;
 }
