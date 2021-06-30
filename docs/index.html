@@ -28,6 +28,8 @@
 
 				<p>Prompts the user to select a file on their computer, then loads it into memory. Returns a Promise.</p>
 
+				<p><strong>Important note:</strong> because there is no reliable way to detect when a user cancels out of a file selection window, it is possible this Promise may never resolve. Make sure your code is written to accommodate this.</p>
+
 				<p>To load files, FileIO creates an <code>&lt;input type="file" /&gt;</code> element and triggers a click event on it, causing the browser to open a file dialogue.</p>
 
 				<p>Because this involves opening a native modal dialogue, the <code>load</code> method can only be called as a direct response to user action.</p>
