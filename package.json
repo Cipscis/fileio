@@ -1,25 +1,25 @@
 {
-	"name": "fileio",
-	"version": "2.1.0",
+	"name": "@cipscis/fileio",
+	"version": "3.1.0",
 	"description": "Saving and loading files in a browser.",
 	"private": true,
-	"browser": "./fileio.js",
+	"browser": "./dist/fileio.js",
 	"exports": {
-		".": "./fileio.js",
-		"./load": "./fileio/load.js",
-		"./save": "./fileio.save.js"
+		".": "./dist/fileio.js",
+		"./load": "./dist/load.js",
+		"./save": "./dist/save.js"
 	},
 	"type": "module",
 	"files": [
-		"fileio.js",
-		"fileio/load.js",
-		"fileio/save.js"
+		"dist/**/*"
 	],
+	"types": "dist/fileio.d.ts",
 	"scripts": {
 		"server": "node server/server.js",
 		"build": "gulp build",
 		"watch": "gulp",
-		"start": "concurrently --kill-others \"npm run server\" \"npm run watch\""
+		"start": "concurrently --kill-others \"npm run server\" \"npm run watch\"",
+		"prepare": "tsc"
 	},
 	"author": "Mark Hanna",
 	"repository": {
@@ -28,15 +28,17 @@
 	},
 	"license": "Hippocratic-2.1",
 	"devDependencies": {
-		"concurrently": "^6.1.0",
-		"dotenv": "^10.0.0",
-		"express": "^4.17.1",
 		"gulp": "^4.0.2",
-		"gulp-sass": "^4.1.0",
+		"typescript": "^4.3.5",
 		"sass": "^1.34.1",
-		"webpack-stream": "^6.1.2"
+		"gulp-sass": "^5.0.0",
+		"webpack": "^5.40.0",
+		"ts-loader": "^9.2.5",
+		"express": "^4.17.1",
+		"concurrently": "^6.1.0",
+		"dotenv": "^10.0.0"
 	},
 	"dependencies": {
-		"csv": "github:cipscis/csv#semver:1.x"
+		"@cipscis/csv": "file:cipscis-csv-2.0.0.tgz"
 	}
 }

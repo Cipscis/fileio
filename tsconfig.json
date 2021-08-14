@@ -1,0 +1,21 @@
+{
+	"include": ["src/**/*"],
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"declaration": true,
+		"sourceMap": true,
+		"outDir": "./dist",
+		"strict": true,
+		"moduleResolution": "node",
+		"paths": {
+			"@cipscis/fileio": ["./src/fileio.ts"],
+			"./load.js": ["./load.ts"],
+			"./save.js": ["./save.ts"],
+			"./readmethod.js": ["./readmethod.ts"]
+		},
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
+	}
+}

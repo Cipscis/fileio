@@ -5,14 +5,15 @@
 			"file_exclude_patterns":
 			[
 				".gitignore",
-				"package-lock.json",
-				"*.sublime-project"
+				"*.sublime-project",
+				"package-lock.json"
 			],
 			"folder_exclude_patterns":
 			[
 				"node_modules",
-				"docs/assets/css",
-				"docs/assets/js/dist"
+				"dist",
+				"docs/assets/js/dist",
+				"docs/assets/css"
 			],
 			"path": "."
 		}
