@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 * Published to npm, now requiring different install method.
 * Converted to TypeScript.
+* The `load` method now takes its `readMethod` argument directly, instead of inside an optional `options` object.
 * The `save` method now throws an error if attempting to call `JSON.stringify` on data it's trying to save as JSON throws an error.
 
 ## [2.1.0] - 2021-06-22
