@@ -36,8 +36,7 @@ const saveCsv = () => {
 	];
 	const filename = 'test csv';
 
-	// TODO: Not sure why I need to say as fileIO.SaveOptions here - it extends csv.StringifyOptions, which includes transpose?: boolean
-	fileIO.save(data, {filename, type: 'csv', transpose: true } as fileIO.SaveOptions);
+	fileIO.save(data, {filename, type: 'csv', transpose: true });
 };
 document.querySelectorAll('.js-save-csv').forEach(($el) => $el.addEventListener('click', saveCsv));
 
