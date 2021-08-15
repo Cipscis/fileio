@@ -39,6 +39,6 @@
 		"dotenv": "^10.0.0"
 	},
 	"dependencies": {
-		"@cipscis/csv": "file:cipscis-csv-2.0.0.tgz"
+		"@cipscis/csv": "^2.0.0"
 	}
 }
