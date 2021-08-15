@@ -15,8 +15,10 @@
 
 				<p>This provides methods for saving and loading files in the browser.</p>
 
-				<code class="code--block">import * as fileio from 'fileio';</code>
-				<code class="code--block">import { load, save } from 'fileio';</code>
+				<code class="code--block">import * as fileio from '@cipscis/fileio';</code>
+				<code class="code--block">import { load, save, ReadMethod } from '@cipscis/fileio';</code>
+				<code class="code--block">import { load, ReadMethod } from '@cipscis/fileio/load';</code>
+				<code class="code--block">import { save } from '@cipscis/fileio/save';</code>
 			</div>
 		</section>
 
@@ -24,7 +26,7 @@
 			<div class="content">
 				<h2>Load</h2>
 
-				<code>load(options)</code>
+				<code>load(readMethod: ReadMethod)</code>
 
 				<p>Prompts the user to select a file on their computer, then loads it into memory. Returns a Promise.</p>
 
@@ -38,23 +40,21 @@
 
 				<p>This method can be loaded on its own:</p>
 
-				<code class="code--block">import { load } from 'fileio';</code>
-				<code class="code--block">import { load } from 'fileio/load';</code>
+				<code class="code--block">import { load } from '@cipscis/fileio';</code>
+				<code class="code--block">import { load } from '@cipscis/fileio/load';</code>
 
-				<h3>Options</h3>
+				<h3><code>readMethod: ReadMethod</code></h3>
 
-				<dl>
-					<div>
-						<dt><code>readMethod</code></dt>
-						<dd>
-							<p><code>string: 'file' | 'arrayBuffer' | 'binaryString' | 'dataUrl' | 'text'</code></p>
+				<p><code>'arrayBuffer' | 'binaryString' | 'dataUrl' | text' | 'file'</code></p>
 
-							<p>Determines which read method to use with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank">FileReader</a> API. Defaults to <code>'text'</code>.</p>
+				<p>You can import the <code>ReadMethod</code> enum directly:</p>
 
-							<p>The <code>'file'</code> option bypasses the FileReader API and returns the File object directly.</p>
-						</dd>
-					</div>
-				</dl>
+				<code class="code--block">import { ReadMethod } from '@cipscis/fileio';</code>
+				<code class="code--block">import { ReadMethod } from '@cipscis/fileio/load';</code>
+
+				<p>Determines which read method to use with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" target="_blank">FileReader</a> API. Defaults to <code>'text'</code>.</p>
+
+				<p>The <code>'file'</code> option bypasses the FileReader API and returns the File object directly.</p>
 
 				<h3>Examples</h3>
 
@@ -74,7 +74,7 @@
 			<div class="content">
 				<h2>Save</h2>
 
-				<code>save(data, options)</code>
+				<code>save(data: any, options?: SaveOptions)</code>
 
 				<p>The <code>save method</code> can save a <code>File</code>, a <code>Blob</code>, or arbitrary data to disk.</p>
 
@@ -84,21 +84,23 @@
 
 				<p>This method can be loaded on its own:</p>
 
-				<code class="code--block">import { save } from 'fileio';</code>
-				<code class="code--block">import { save } from 'fileio/save';</code>
+				<code class="code--block">import { save } from '@cipscis/fileio';</code>
+				<code class="code--block">import { save } from '@cipscis/fileio/save';</code>
 
-				<h3>Options</h3>
+				<h3><code>data: any</code></h3>
+
+				<p>The data to be saved as a file.</p>
+
+				<h3><code>options?: SaveOptions</code></h3>
 
 				<dl>
 					<div>
-						<dt><code>filename</code></dt>
-						<dd><code>string</code></dd>
+						<dt><code>filename?: string</code></dt>
+						<dd>The default name to prompt the user to use for the file. Defaults to 'file', though if a <code>File</code> object with a <code>name</code> property is being saved that name will be used as the default.</dd>
 					</div>
 					<div>
-						<dt><code>type</code></dt>
+						<dt><code>type?: string</code></dt>
 						<dd>
-							<p><code>string</code></p>
-
 							<p>The MIME type to use when saving arbitrary data. The strings <code>'csv'</code> and <code>'json'</code> can be used as shorthand for <code>'text/csv'</code> and <code>'application/json'</code>, respectively.</p>
 
 							<p>If the MIME type indicates that data should be saved as JSON, FileIO will attempt to stringify the data if it isn't already a string, and the filename will be given a <code>'.json'</code> extension.</p>
@@ -106,29 +108,9 @@
 							<p>If the MIME type indicates that data should be saved as a CSV, FileIO will expect a 2D array for it to process into a CSV string.</p>
 						</dd>
 					</div>
-					<div>
-						<dt><code>transpose</code></dt>
-						<dd>
-							<p><code>boolean</code></p>
-
-							<p>Only used if saving CSV data.</p>
-
-							<p>If set to <code>true</code>, swap rows and columns before saving.</p>
-						</dd>
-					</div>
-					<div>
-						<dt><code>sanitise</code></dt>
-						<dd>
-							<p><code>boolean</code></p>
-
-							<p>Only used if saving CSV data.</p>
-
-							<p>If set to <code>true</code>, prepend each cell starting with <code>'=' | '\' | '-' | '+' | '@'</code> with a tab character. This prevents spreadsheet software like Excel from trying to execute code.</p>
-
-							<p>This option should be used when saving any data to a CSV that may include data from an untrusted source, such as user-generated data.</p>
-						</dd>
-					</div>
 				</dl>
+
+				<p>If you are saving data as a CSV, you can also pass through any options accepted by <a href="cipscis.github.io/csv#StringifyOptions" target="_blank">@cipscis/csv</a>.
 
 				<h3>Examples</h3>
 

@@ -90,4 +90,4 @@ function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
 	});
 }
 
-export { load };
+export { load, ReadMethod };
