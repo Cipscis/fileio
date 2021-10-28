@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<link rel="stylesheet" href="/fileio/assets/css/main.css" />
-	<script type="module" src="/fileio/assets/js/dist/bundle.js"></script>
+	<script type="module" src="/fileio/assets/js/dist/docs-script.bundle.js"></script>
 </head>
 <body>
 	<main class="layout">
@@ -30,7 +30,7 @@
 
 				<p>Prompts the user to select a file on their computer, then loads it into memory. Returns a Promise.</p>
 
-				<p><strong>Important note:</strong> because there is no reliable way to detect when a user cancels out of a file selection window, it is possible this Promise may never resolve. Make sure your code is written to accommodate this.</p>
+				<p><strong>Important note:</strong> for browsers that don't support the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API), because there is no reliable way to detect when a user cancels out of a file selection window, it is possible this Promise may never resolve. Make sure your code is written to accommodate this.</p>
 
 				<p>To load files, FileIO creates an <code>&lt;input type="file" /&gt;</code> element and triggers a click event on it, causing the browser to open a file dialogue.</p>
 
