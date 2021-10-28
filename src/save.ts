@@ -9,7 +9,8 @@ declare global {
 
 export interface SaveOptions extends StringifyOptions {
 	filename?: string,
-	type?: string
+	type?: string,
+	saveAs?: boolean,
 }
 
 let $link: HTMLAnchorElement;
@@ -49,7 +50,15 @@ function _saveBlob(blob: Blob, options?: SaveOptions): void {
 
 	const filename = options?.filename || 'file';
 
-	if (navigator.msSaveBlob) {
+	if (options?.saveAs && window.showSaveFilePicker) {
+		showSaveFilePicker({
+			suggestedName: filename,
+		}).then(async (handle) => {
+			const writeableStream = await handle.createWritable();
+			await writeableStream.write(blob);
+			await writeableStream.close();
+		});
+	} else if (navigator.msSaveBlob) {
 		navigator.msSaveBlob(blob, filename);
 	} else {
 		const url = URL.createObjectURL(blob);
@@ -73,7 +82,15 @@ function _saveFile(file: File, options?: SaveOptions): void {
 
 	const filename = options?.filename || file.name || 'file';
 
-	if (navigator.msSaveBlob) {
+	if (options?.saveAs && window.showSaveFilePicker) {
+		showSaveFilePicker({
+			suggestedName: filename,
+		}).then(async (handle) => {
+			const writeableStream = await handle.createWritable();
+			await writeableStream.write(file);
+			await writeableStream.close();
+		});
+	} else if (navigator.msSaveBlob) {
 		navigator.msSaveBlob(file, filename);
 	} else {
 		const reader = new FileReader();
