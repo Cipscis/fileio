@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+### Added
+
+* The `loadFile` method will now use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API) if it's available.
+
 ### Fixed
 
 * Extended the `Navigator` interface to define `msSaveBlob`, which is not included in the latest versions of TypeScript.

@@ -67,26 +67,43 @@ function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
 			}
 		};
 
-		function loadSelectedFileEvent(this: HTMLInputElement, e: Event): void {
-			const $fileInput = this;
+		// @ts-ignore This function doesn't exist for all browsers, but @types/wicg-file-system-access doesn't make it optional
+		if (window.showOpenFilePicker) {
+			window.showOpenFilePicker().then(async ([handle]) => {
+				if (handle.kind === 'file') {
+					const file = await handle.getFile();
 
-			const files = $fileInput.files;
-			if (files && files.length > 0) {
-				const file = files[0];
-
-				if (readMethod === ReadMethod.File) {
-					resolve(file);
+					if (readMethod === ReadMethod.File) {
+						resolve(file);
+					} else {
+						readFile(file);
+					}
 				} else {
-					readFile(file);
+					reject();
 				}
-			}
-		};
+			}).catch(reject);
+		} else {
+			function loadSelectedFileEvent(this: HTMLInputElement, e: Event): void {
+				const $fileInput = this;
 
-		const $fileInput = document.createElement('input');
-		$fileInput.type = 'file';
-		$fileInput.addEventListener('change', loadSelectedFileEvent);
+				const files = $fileInput.files;
+				if (files && files.length > 0) {
+					const file = files[0];
 
-		$fileInput.click();
+					if (readMethod === ReadMethod.File) {
+						resolve(file);
+					} else {
+						readFile(file);
+					}
+				}
+			};
+
+			const $fileInput = document.createElement('input');
+			$fileInput.type = 'file';
+			$fileInput.addEventListener('change', loadSelectedFileEvent);
+
+			$fileInput.click();
+		}
 	});
 }
 
