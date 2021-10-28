@@ -112,6 +112,8 @@
 						<dt><code>saveAs?: boolean</code></dt>
 						<dd>
 							<p>If <code>saveAs</code> is set to <code>true</code>, the <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API" target="_blank">File System Access API</a>'s <code>showSaveFilePicker</code> method will be used if available, forcing browsers to show a "Save As" dialogue regardless of their standard download location settings.</p>
+
+							<p><strong>Important note:</strong> When saving a file via a file handle retrieved through the <code>showSaveFilePicker</code> method, the browser will not display the usual "file saved" notification to the user. If you intend to use this method of saving, you should consider how to notify the user that their file has been saved.</p>
 						</dd>
 					</div>
 				</dl>
