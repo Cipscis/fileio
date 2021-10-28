@@ -62,7 +62,7 @@
 
 				<p>Images can be loaded using the <code>'dataUrl'</code> read method, allowing the result to be set as the <code>src</code> attribute of an <code>img</code> tag to display the selected image:</p>
 
-				<p><button class="js-load-image">Load Image</button></p>
+				<p><button type="button" class="js-load-image">Load Image</button></p>
 			</div>
 
 			<div>
@@ -108,17 +108,27 @@
 							<p>If the MIME type indicates that data should be saved as a CSV, FileIO will expect a 2D array for it to process into a CSV string.</p>
 						</dd>
 					</div>
+					<div>
+						<dt><code>saveAs?: boolean</code></dt>
+						<dd>
+							<p>If <code>saveAs</code> is set to <code>true</code>, the <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API" target="_blank">File System Access API</a>'s <code>showSaveFilePicker</code> method will be used if available, forcing browsers to show a "Save As" dialogue regardless of their standard download location settings.</p>
+						</dd>
+					</div>
 				</dl>
+
+				<p>All the examples on this page have the <code>saveAs</code> option set to <code class="js-save-as-value">false</code>.</p>
+
+				<p><button type="button" class="js-save-as-toggle">Toggle saveAs option</button></p>
 
 				<p>If you are saving data as a CSV, you can also pass through any options accepted by <a href="cipscis.github.io/csv#StringifyOptions" target="_blank">@cipscis/csv</a>.
 
 				<h3>Examples</h3>
 
-				<p><button class="js-save-data">Save some data</button></p>
-				<p><button class="js-save-json">Save JSON</button></p>
-				<p><button class="js-save-csv">Save a CSV</button></p>
+				<p><button type="button" class="js-save-data">Save some data</button></p>
+				<p><button type="button" class="js-save-json">Save JSON</button></p>
+				<p><button type="button" class="js-save-csv">Save a CSV</button></p>
 
-				<p><button class="js-save-file">Save a file</button></p>
+				<p><button type="button" class="js-save-file">Save a file</button></p>
 			</div>
 		</section>
 	</main>

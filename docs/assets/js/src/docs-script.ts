@@ -1,5 +1,15 @@
 import * as fileIO from '@cipscis/fileio';
 
+let saveAs = false;
+const toggleSaveAs = () => {
+	saveAs = !saveAs;
+	const $saveAsValue = document.querySelector<HTMLElement>('.js-save-as-value');
+	if ($saveAsValue) {
+		$saveAsValue.innerText = saveAs.toString();
+	}
+};
+document.querySelectorAll('.js-save-as-toggle').forEach(($el) => $el.addEventListener('click', toggleSaveAs));
+
 const loadImage = (fileUrl: string) => {
 	const $image = document.querySelectorAll('.js-fileio-image') as NodeListOf<HTMLImageElement>;
 	$image.forEach(($image) => $image.src = fileUrl);
@@ -13,7 +23,7 @@ const saveData = () => {
 	const filename = 'test file.txt';
 	const type = 'text/plain';
 
-	fileIO.save(data, { filename, type });
+	fileIO.save(data, { filename, type, saveAs });
 };
 document.querySelectorAll('.js-save-data').forEach(($el) => $el.addEventListener('click', saveData));
 
@@ -24,7 +34,8 @@ const saveJson = () => {
 	};
 	const filename = 'test json';
 
-	fileIO.save(data, { filename, type: 'json' });
+	console.log('test');
+	fileIO.save(data, { filename, type: 'json', saveAs });
 };
 document.querySelectorAll('.js-save-json').forEach(($el) => $el.addEventListener('click', saveJson));
 
@@ -36,12 +47,12 @@ const saveCsv = () => {
 	];
 	const filename = 'test csv';
 
-	fileIO.save(data, {filename, type: 'csv', transpose: true });
+	fileIO.save(data, {filename, type: 'csv', saveAs, transpose: true });
 };
 document.querySelectorAll('.js-save-csv').forEach(($el) => $el.addEventListener('click', saveCsv));
 
 const saveFile = async () => {
 	const file = await fileIO.load(fileIO.ReadMethod.File);
-	fileIO.save(file);
+	fileIO.save(file, { saveAs });
 };
 document.querySelectorAll('.js-save-file').forEach(($el) => $el.addEventListener('click', saveFile));

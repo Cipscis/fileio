@@ -6,7 +6,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
-* The `loadFile` method will now use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API) if it's available.
+* The `load` method will now use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API)'s `showOpenFilePicker` method if it's available.
+* The `save` method now has a `saveAs` option that will tell it to use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API)'s `showSaveFilePicker` method if it's available.
 
 ### Fixed
 
