@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Fixed
+
+* Extended the `Navigator` interface to define `msSaveBlob`, which is not included in the latest versions of TypeScript.
+
 ## [3.0.0] - 2021-08-15
 
 ### Changed
