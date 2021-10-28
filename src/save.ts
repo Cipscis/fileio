@@ -1,6 +1,12 @@
 import { StringifyOptions } from '@cipscis/csv';
 import * as csv from '@cipscis/csv';
 
+declare global {
+	interface Navigator {
+		msSaveBlob?: (blob: any, defaultName?: string) => boolean
+	}
+}
+
 export interface SaveOptions extends StringifyOptions {
 	filename?: string,
 	type?: string
