@@ -11,7 +11,7 @@ const toggleSaveAs = () => {
 document.querySelectorAll('.js-save-as-toggle').forEach(($el) => $el.addEventListener('click', toggleSaveAs));
 
 const loadImage = (fileUrl: string) => {
-	const $image = document.querySelectorAll('.js-fileio-image') as NodeListOf<HTMLImageElement>;
+	const $image = document.querySelectorAll<HTMLImageElement>('.js-fileio-image');
 	$image.forEach(($image) => $image.src = fileUrl);
 };
 document.querySelectorAll('.js-load-image').forEach(($el) => $el.addEventListener('click', () => {
@@ -30,11 +30,10 @@ document.querySelectorAll('.js-save-data').forEach(($el) => $el.addEventListener
 const saveJson = () => {
 	const data = {
 		text: 1,
-		foo: 'bar'
+		foo: 'bar',
 	};
 	const filename = 'test json';
 
-	console.log('test');
 	fileIO.save(data, { filename, type: 'json', saveAs });
 };
 document.querySelectorAll('.js-save-json').forEach(($el) => $el.addEventListener('click', saveJson));
@@ -43,7 +42,7 @@ const saveCsv = () => {
 	const data = [
 		['even numbers', 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
 		['odd numbers', 1, 3, 5, 7, 9],
-		['prime numbers, up to ten', 2, 3, 5, 7]
+		['prime numbers, up to ten', 2, 3, 5, 7],
 	];
 	const filename = 'test csv';
 
