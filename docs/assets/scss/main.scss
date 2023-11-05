@@ -1,13 +1,13 @@
-@import "theme.scss";
+@import "theme";
 
-@import "reset.scss";
+@import "reset";
 
-@import "typography.scss";
+@import "typography";
 
-@import "content.scss";
+@import "content";
 
 html {
-	font-family: Arial, sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 .layout {

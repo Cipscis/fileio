@@ -1,9 +1,7 @@
-enum ReadMethod {
+export enum ReadMethod {
 	ArrayBuffer = 'arrayBuffer',
 	BinaryString = 'binaryString',
 	DataUrl = 'dataUrl',
 	Text = 'text',
-	File = 'file',
+	File = 'file'
 }
-
-export { ReadMethod };
