@@ -41,19 +41,19 @@ button, input, select, textarea {
 }
 
 html {
-  font-family: "Roboto Slab", "Times New Roman", Times, serif;
+  font-family: "Roboto Slab", "Times New Roman", times, serif;
   line-height: 1.7;
   font-size: 18px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Roboto", Arial, sans-serif;
+  font-family: "Roboto", "Arial", sans-serif;
 }
 
 @media print {
-  a[href^=http]:after,
-a[href^=mailto]:after,
-a[href^=tel]:after {
+  a[href^=http]::after,
+  a[href^=mailto]::after,
+  a[href^=tel]::after {
     content: " [" attr(href) "]";
     overflow-wrap: break-word;
   }
@@ -94,10 +94,12 @@ a[href^=tel]:after {
 }
 
 html {
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .layout {
   max-width: 800px;
   margin: 60px auto;
 }
+
+/*# sourceMappingURL=main.css.map */
