@@ -2,6 +2,17 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.1] - 2023-11-05
+
+### Fixed
+
+* Data being saved as JSON or CSV will now have its default filename's extension updated correctly.
+* The browser will no longer log errors to the console if the user closes a save window without saving a file.
+
+### Changed
+
+* Updated infrastructure.
+
 ## [3.1.0] - 2021-10-29
 
 ### Added
