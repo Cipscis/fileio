@@ -43,7 +43,7 @@
 		// Alias the package name so it can be imported in documentation
 		// https://www.typescriptlang.org/tsconfig#paths
 		"paths": {
-			"@cipscis/base-package": ["../../../../src/main-export.js"]
+			"@cipscis/fileio": ["../../../../src/fileio.js"]
 		}
 	}
 }
