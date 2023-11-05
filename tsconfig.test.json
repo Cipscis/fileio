@@ -1,0 +1,50 @@
+{
+	"include": [
+		"src/**/__tests__/**/*",
+		"src/**/*.test.*",
+		"src/**/*.spec.*"
+	],
+	"compilerOptions": {
+		// Fixes some issues with non-ESM imports
+		// https://www.typescriptlang.org/tsconfig#esModuleInterop
+		"esModuleInterop": true,
+		// Skip type-checking declaration files, to improve performance
+		// https://www.typescriptlang.org/tsconfig#skipLibCheck
+		"skipLibCheck": true,
+		// Always target the latest supported ECMAScript version
+		// https://www.typescriptlang.org/tsconfig#target
+		"target": "ESNext",
+		// Standardises how type and non-type imports are treated
+		// https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax
+		"verbatimModuleSyntax": true,
+		// Tell TypeScript every file is a module, so it doesn't have to figure it out
+		// https://www.typescriptlang.org/tsconfig#moduleDetection
+		"moduleDetection": "force",
+
+		// Strict mode should really be a default
+		// https://www.typescriptlang.org/tsconfig#strict
+		"strict": true,
+
+		// Use Node module resolution, since this code isn't bundled
+		// https://www.typescriptlang.org/tsconfig#moduleResolution
+		"moduleResolution": "NodeNext",
+		// This must be set to "NodeNext" when "moduleResolution" is set to "NodeNext"
+		// https://www.typescriptlang.org/tsconfig#module
+		// https://www.typescriptlang.org/docs/handbook/modules/reference.html#summary-1
+		"module": "NodeNext",
+		// Output directory for compiled code
+		// https://www.typescriptlang.org/tsconfig#outDir
+		"outDir": "dist",
+		// Generate source maps when compiling with `tsc`
+		// https://www.typescriptlang.org/tsconfig#sourceMap
+		"sourceMap": true,
+
+		// Include types for the latest ECMAScript features,
+		// including DOM APIs because it runs in the browser
+		// https://www.typescriptlang.org/tsconfig#lib
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		// Generate declaration files as part of compilation
+		// https://www.typescriptlang.org/tsconfig#declaration
+		"declaration": true
+	}
+}

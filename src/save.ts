@@ -1,16 +1,16 @@
-import { StringifyOptions } from '@cipscis/csv';
+import type { StringifyOptions } from '@cipscis/csv';
 import * as csv from '@cipscis/csv';
 
 declare global {
 	interface Navigator {
-		msSaveBlob?: (blob: any, defaultName?: string) => boolean
+		msSaveBlob?: (blob: unknown, defaultName?: string) => boolean;
 	}
 }
 
 export interface SaveOptions extends StringifyOptions {
-	filename?: string,
-	type?: string,
-	saveAs?: boolean,
+	filename?: string;
+	type?: string;
+	saveAs?: boolean;
 }
 
 let $link: HTMLAnchorElement;
@@ -18,7 +18,7 @@ let $link: HTMLAnchorElement;
 /**
  * Save arbitrary data as a file, using the browser's built-in save file window.
  *
- * @param {any} data - Data to save in a file
+ * @param {unknown} data - Data to save in a file
  * @param {SaveOptions} [options] - An object containing options for how to save the file.
  * @param {string} [options.filename] - The name to use for the file being saved.
  * @param {string} [options.type] - The type of data being saved.
@@ -26,7 +26,7 @@ let $link: HTMLAnchorElement;
  * @throws {TypeError} - Thrown if data attempting to be saved as JSON fails to stringify.
  * @throws {DOMException} - Thrown if reading a File object fails.
  */
-function save(data: any, options?: SaveOptions): void {
+function save(data: unknown, options?: SaveOptions): void {
 	if (data instanceof File) {
 		_saveFile(data, options);
 	} else if (data instanceof Blob) {
@@ -50,13 +50,15 @@ function _saveBlob(blob: Blob, options?: SaveOptions): void {
 
 	const filename = options?.filename || 'file';
 
-	if (options?.saveAs && window.showSaveFilePicker) {
+	if (options?.saveAs && 'showSaveFilePicker' in window) {
 		showSaveFilePicker({
 			suggestedName: filename,
 		}).then(async (handle) => {
 			const writeableStream = await handle.createWritable();
 			await writeableStream.write(blob);
 			await writeableStream.close();
+		}).catch(() => {
+			// Do nothing if the user doesn't save the file
 		});
 	} else if (navigator.msSaveBlob) {
 		navigator.msSaveBlob(blob, filename);
@@ -82,13 +84,15 @@ function _saveFile(file: File, options?: SaveOptions): void {
 
 	const filename = options?.filename || file.name || 'file';
 
-	if (options?.saveAs && window.showSaveFilePicker) {
+	if (options?.saveAs && 'showSaveFilePicker' in window) {
 		showSaveFilePicker({
 			suggestedName: filename,
 		}).then(async (handle) => {
 			const writeableStream = await handle.createWritable();
 			await writeableStream.write(file);
 			await writeableStream.close();
+		}).catch(() => {
+			// Do nothing if the user doesn't save the file
 		});
 	} else if (navigator.msSaveBlob) {
 		navigator.msSaveBlob(file, filename);
@@ -128,16 +132,19 @@ function _saveFile(file: File, options?: SaveOptions): void {
 /**
  * Save arbitary data as a file.
  *
- * @param {any} data - Data to save as a file.
+ * @param {unknown} data - Data to save as a file.
  * @param {SaveOptions} [options] - An object containing options for how to save the file.
  * @param {string} [options.filename=file] - The name to use for the file being saved.
  * @param {string} [options.type] - The type of data being saved.
  *
  * @throws {TypeError} - Thrown if data attempting to be saved as JSON fails to stringify.
  */
-function _saveData(data: any, options?: SaveOptions): void {
-	let filename = options?.filename || 'file';
-	let type = options?.type || 'text/plain'
+function _saveData(data: unknown, options?: SaveOptions): void {
+	options = options ?? {};
+	if (!options.filename) {
+		options.filename = 'file';
+	}
+	let type = options?.type || 'text/plain';
 
 	// Type shorthands
 	switch (type) {
@@ -153,21 +160,26 @@ function _saveData(data: any, options?: SaveOptions): void {
 		// May throw an error
 		data = JSON.stringify(data);
 
-		filename = _extendFilename(filename, 'json');
+		options.filename = _extendFilename(options.filename, 'json');
 	} else if (type === 'text/csv') {
-		if (typeof data !== 'string') {
+		if (Array.isArray(data) && data.every(Array.isArray)) {
 			data = csv.stringify(data, options);
 		}
-		filename = _extendFilename(filename, 'csv');
+		options.filename = _extendFilename(options.filename, 'csv');
 	}
 
-	// Construct a Blob and download it
-	let blob = new Blob(
-		[data],
-		{ type }
-	);
+	try {
+		// Construct a Blob and download it
+		const blob = new Blob(
+			// This type assertion is *not* safe, but if an error is thrown it will be handled
+			[data as BlobPart],
+			{ type }
+		);
 
-	_saveBlob(blob, options);
+		_saveBlob(blob, options);
+	} catch (e) {
+		throw new TypeError('Could not save data due to unsupported type');
+	}
 }
 
 /**
@@ -194,7 +206,7 @@ function _downloadDataUrl(dataUrl: string, filename: string): void {
  * @return {string} `${filename}.${extension}`
  */
 function _extendFilename(filename: string, extension: string): string {
-	let testPattern = new RegExp('\\.' + extension + '$');
+	const testPattern = new RegExp('\\.' + extension + '$');
 
 	if (!testPattern.test(filename)) {
 		filename += '.' + extension;
