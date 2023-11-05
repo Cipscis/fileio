@@ -57,6 +57,8 @@ function _saveBlob(blob: Blob, options?: SaveOptions): void {
 			const writeableStream = await handle.createWritable();
 			await writeableStream.write(blob);
 			await writeableStream.close();
+		}).catch(() => {
+			// Do nothing if the user doesn't save the file
 		});
 	} else if (navigator.msSaveBlob) {
 		navigator.msSaveBlob(blob, filename);
@@ -89,6 +91,8 @@ function _saveFile(file: File, options?: SaveOptions): void {
 			const writeableStream = await handle.createWritable();
 			await writeableStream.write(file);
 			await writeableStream.close();
+		}).catch(() => {
+			// Do nothing if the user doesn't save the file
 		});
 	} else if (navigator.msSaveBlob) {
 		navigator.msSaveBlob(file, filename);
