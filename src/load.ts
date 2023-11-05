@@ -1,4 +1,4 @@
-import { ReadMethod } from './readmethod.js';
+import { ReadMethod } from './ReadMethod.js';
 
 /**
  * Load a file via the browser's built-in file selection field.
@@ -12,10 +12,10 @@ import { ReadMethod } from './readmethod.js';
  *
  * @return {Promise} Resolves with the contents of the selected file.
  */
-function load(readMethod: ReadMethod.ArrayBuffer): Promise<ArrayBuffer>
-function load(readMethod?: ReadMethod.BinaryString | ReadMethod.DataUrl | ReadMethod.Text): Promise<string>
-function load(readMethod: ReadMethod.File): Promise<File>;
-function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
+export function load(readMethod: ReadMethod.ArrayBuffer): Promise<ArrayBuffer>;
+export function load(readMethod?: ReadMethod.BinaryString | ReadMethod.DataUrl | ReadMethod.Text): Promise<string>;
+export function load(readMethod: ReadMethod.File): Promise<File>;
+export function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
 	readMethod = readMethod ?? ReadMethod.Text;
 
 	return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
 					}
 				}
 			}
-		};
+		}
 
 		function readFile(file: File): void {
 			const reader = new FileReader();
@@ -65,10 +65,9 @@ function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
 					reject(new RangeError(`FileIO: Unrecognised readMethod ${readMethod}`));
 					break;
 			}
-		};
+		}
 
-		// @ts-ignore This function doesn't exist for all browsers, but @types/wicg-file-system-access doesn't make it optional
-		if (window.showOpenFilePicker) {
+		if ('showOpenFilePicker' in window) {
 			window.showOpenFilePicker().then(async ([handle]) => {
 				if (handle.kind === 'file') {
 					const file = await handle.getFile();
@@ -82,29 +81,28 @@ function load(readMethod?: ReadMethod): Promise<File | string | ArrayBuffer> {
 					reject();
 				}
 			}).catch(reject);
-		} else {
-			function loadSelectedFileEvent(this: HTMLInputElement, e: Event): void {
-				const $fileInput = this;
-
-				const files = $fileInput.files;
-				if (files && files.length > 0) {
-					const file = files[0];
-
-					if (readMethod === ReadMethod.File) {
-						resolve(file);
-					} else {
-						readFile(file);
-					}
-				}
-			};
-
-			const $fileInput = document.createElement('input');
-			$fileInput.type = 'file';
-			$fileInput.addEventListener('change', loadSelectedFileEvent);
-
-			$fileInput.click();
+			return;
 		}
+
+		function loadSelectedFileEvent(this: HTMLInputElement, e: Event): void {
+			const $fileInput = this;
+
+			const files = $fileInput.files;
+			if (files && files.length > 0) {
+				const file = files[0];
+
+				if (readMethod === ReadMethod.File) {
+					resolve(file);
+				} else {
+					readFile(file);
+				}
+			}
+		}
+
+		const $fileInput = document.createElement('input');
+		$fileInput.type = 'file';
+		$fileInput.addEventListener('change', loadSelectedFileEvent);
+
+		$fileInput.click();
 	});
 }
-
-export { load, ReadMethod };
